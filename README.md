@@ -1,4 +1,4 @@
-<div style="text-align: center;"><img width="150" src="docs/dev-kindness.png"></div>
+<p align="center"><img width="150" src="docs/dev-kindness.png"></p>
 
 # Dev Kindness App
 
