@@ -6,8 +6,8 @@ const database = client.database(process.env.DATABASE_NAME);
 const container = database.container('kindness');
 
 module.exports = async function (context, req) {
-    const { resources } = await container.items.query('SELECT * from c').fetchAll();
+    // const { resources } = await container.items.query('SELECT * from c').fetchAll();
     context.res = {
-        body: resources
+        body: ["Hello"]
     };
 }
