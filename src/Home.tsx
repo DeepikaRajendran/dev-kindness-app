@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Paper, makeStyles, Button, Typography} from '@material-ui/core';
 const axios = require('axios').default;
 export default function Home() {
@@ -49,7 +49,10 @@ export default function Home() {
   const handleClick = () => {
     getData();
   };
-
+ 
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <Paper className={classes.paper}>
       <Typography gutterBottom variant="h4">
