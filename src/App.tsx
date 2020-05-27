@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import {
   Link as RouterLink,
   BrowserRouter as Router,
-  Route,
+  Route
 } from 'react-router-dom';
 import Submission from './Submission/Submission';
 import { Button } from '@material-ui/core';

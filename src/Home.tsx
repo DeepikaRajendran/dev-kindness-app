@@ -1,55 +1,63 @@
-import React, { useState } from 'react';
-import { Paper, makeStyles, ButtonBase, Button, Typography } from '@material-ui/core';
-import data from './data/data.json';
-export default function Home(){
-    const useStyles = makeStyles(theme => ({
-        root: {
-          flexGrow: 1,
-        },
-        menuButton: {
-          marginRight: theme.spacing(2),
-        },
-        title: {
-          flexGrow: 1,
-        },
-        paper: {
-          padding: theme.spacing(2),
-          margin: 'auto',
-          maxWidth: 500,
-          textAlign: 'center'
-        },
-        image: {
-          width: 428,
-          height: 428,
-        },
-        img: {
-          margin: 'auto',
-          display: 'block',
-          maxWidth: '100%',
-          maxHeight: '100%',
-        },
-        
-      }));
-      const classes = useStyles();
-      const [quote, setQuote] = useState(data[Math.floor(Math.random()*data.length)]);
-      const handleClick = () => { 
-        setQuote(data[Math.floor(Math.random()*data.length)]);
-      }
-      
-    return (
-        <Paper className={classes.paper}>
-        <ButtonBase className={classes.image}>
-          <img
-            className={classes.img}
-            alt="complex"
-            src={quote.image}
-          />
-        </ButtonBase>
+import React, {useState} from 'react';
+import {Paper, makeStyles, Button, Typography} from '@material-ui/core';
+const axios = require('axios').default;
+export default function Home() {
+  const useStyles = makeStyles(theme => ({
+    root: {
+      flexGrow: 1,
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    title: {
+      flexGrow: 1,
+    },
+    paper: {
+      padding: theme.spacing(2),
+      margin: 'auto',
+      maxWidth: 500,
+      textAlign: 'center',
+      verticalAlign: 'middle'
+    },
+    image: {
+      width: 428,
+      height: 428,
+    },
+    img: {
+      margin: 'auto',
+      display: 'block',
+      maxWidth: '100%',
+      maxHeight: '100%',
+    },
+  }));
+  const classes = useStyles();
+  const getData = () => {
+    axios
+      .get('/api/getSuggestions')
+      .then(function(response: any) {
+        if (response && response.data) {
+          var quote =
+            response.data[Math.floor(Math.random() * response.data.length)];
+          setQuote(quote);
+        }
+      })
+      .catch(function(error: any) {
+        console.log(error);
+      });
+  };
+  const [quote, setQuote] = useState({text: ''});
+  const handleClick = () => {
+    getData();
+  };
 
-        <Typography gutterBottom variant="subtitle1">
-          {quote.quote}
-        </Typography>
-        <Button variant="contained" color="primary" onClick={handleClick}>Generate Ideas</Button>
-      </Paper>
-    );
+  return (
+    <Paper className={classes.paper}>
+      <Typography gutterBottom variant="h4">
+        {quote.text}
+      </Typography>
+      <Button variant="contained" color="primary" onClick={handleClick}>
+        Generate Ideas
+      </Button>
+    </Paper>
+  );
 }
