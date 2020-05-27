@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {Paper, makeStyles, Button, Typography} from '@material-ui/core';
+import {TwitterShareButton, TwitterIcon} from 'react-share';
 const axios = require('axios').default;
+
 export default function Home() {
   const useStyles = makeStyles(theme => ({
     root: {
@@ -17,7 +19,7 @@ export default function Home() {
       margin: 'auto',
       maxWidth: 500,
       textAlign: 'center',
-      verticalAlign: 'middle'
+      verticalAlign: 'middle',
     },
     image: {
       width: 428,
@@ -49,7 +51,7 @@ export default function Home() {
   const handleClick = () => {
     getData();
   };
- 
+
   useEffect(() => {
     getData();
   }, []);
@@ -58,6 +60,16 @@ export default function Home() {
       <Typography gutterBottom variant="h4">
         {quote.text}
       </Typography>
+      <div>
+        <TwitterShareButton
+        url="test.com"
+        title={quote.text}
+        hashtags={['spreadKindness']}>
+        <TwitterIcon
+          size={32}
+          round />
+      </TwitterShareButton>
+      </div>
       <Button variant="contained" color="primary" onClick={handleClick}>
         Generate Ideas
       </Button>
