@@ -62,13 +62,12 @@ export default function Home() {
       </Typography>
       <div>
         <TwitterShareButton
-        url="test.com"
-        title={quote.text}
-        hashtags={['spreadKindness']}>
-        <TwitterIcon
-          size={32}
-          round />
-      </TwitterShareButton>
+          url="test.com"
+          title={quote.text}
+          hashtags={['spreadKindness']}
+        >
+          <TwitterIcon size={32} round />
+        </TwitterShareButton>
       </div>
       <Button variant="contained" color="primary" onClick={handleClick}>
         Generate Ideas
