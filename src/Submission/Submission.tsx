@@ -1,17 +1,15 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   TextField,
   makeStyles,
   createStyles,
-  Theme,
   Box,
   Button,
-  Snackbar,
 } from '@material-ui/core';
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 const axios = require('axios').default;
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       display: 'flex',
@@ -47,13 +45,13 @@ export default function Submission() {
         submittedBy: name,
         text: quote,
       })
-      .then(function(response: any) {
+      .then(function (response: any) {
         if (response.status === 201) {
           setName('');
           setQuote('');
         }
       })
-      .catch(function(error: any) {
+      .catch(function (error: any) {
         console.log(error);
       });
   };

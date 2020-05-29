@@ -49,9 +49,7 @@ export default function Home() {
   const handleClick = () => {
     updateQuote();
   };
-  useEffect(() => {
-    updateQuote();
-  }, [data]);
+  useEffect(updateQuote, [data]);
   useEffect(() => {
     getData();
   }, []);
