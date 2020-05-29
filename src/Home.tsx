@@ -55,23 +55,25 @@ export default function Home() {
   }, []);
   return (
     <div className={classes.root}>
-      <div className={classes.content}>
-        <Typography gutterBottom variant="h5">
-          {quote.text}
-        </Typography>
-        <div>
-          <TwitterShareButton
-            url="test.com"
-            title={quote.text}
-            hashtags={['spreadKindness']}
-          >
-            <TwitterIcon size={32} round />
-          </TwitterShareButton>
-        </div>
-        <Button variant="contained" color="primary" onClick={handleClick}>
-          Generate Ideas
+      {quote &&
+        <div className={classes.content}>
+          <Typography gutterBottom variant="h5">
+            {quote.text}
+          </Typography>
+          <div>
+            <TwitterShareButton
+              url="test.com"
+              title={quote.text}
+              hashtags={['spreadKindness']}
+            >
+              <TwitterIcon size={32} round />
+            </TwitterShareButton>
+          </div>
+          <Button variant="contained" color="primary" onClick={handleClick}>
+            Generate Ideas
         </Button>
-      </div>
+        </div>
+      }
     </div>
   );
 }
