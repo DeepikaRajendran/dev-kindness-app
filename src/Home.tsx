@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import {Paper, makeStyles, Button, Typography} from '@material-ui/core';
-import {TwitterShareButton, TwitterIcon} from 'react-share';
+import React, { useState, useEffect } from 'react';
+import { makeStyles, Button, Typography } from '@material-ui/core';
+import { TwitterShareButton, TwitterIcon } from 'react-share';
 const axios = require('axios').default;
 
 export default function Home() {
@@ -25,26 +25,27 @@ export default function Home() {
     },
   }));
   const classes = useStyles();
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const updateQuote = () => {
-    console.log(data);
-    var quote = data ? data[Math.floor(Math.random() * data.length)] : {};
-    setQuote(quote);
+    if (data) {
+      var quote = data[Math.floor(Math.random() * data.length)];
+      setQuote(quote);
+    }
   };
   const getData = () => {
     axios
       .get('/api/getSuggestions')
-      .then(function(response: any) {
+      .then(function (response: any) {
         if (response && response.data) {
           setData(response.data);
         }
       })
-      .catch(function(error: any) {
+      .catch(function (error: any) {
         console.log(error);
       });
   };
 
-  const [quote, setQuote] = useState({text: ''});
+  const [quote, setQuote] = useState({ text: '' });
   const handleClick = () => {
     updateQuote();
   };
