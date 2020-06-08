@@ -1,12 +1,21 @@
-import React, {useState, useEffect} from 'react';
-import {Paper, makeStyles, Button, Typography} from '@material-ui/core';
-import {TwitterShareButton, TwitterIcon} from 'react-share';
+import React, { useState, useEffect } from 'react';
+import { makeStyles, Button, Typography } from '@material-ui/core';
+import { TwitterShareButton, TwitterIcon } from 'react-share';
 const axios = require('axios').default;
 
 export default function Home() {
   const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1,
+      textAlign: 'center',
+    },
+    content: {
+      boxSizing: 'content-box',
+      display: 'inline-block',
+      width: '100%',
+      position: 'absolute',
+      top: '40%',
+      transform: 'translate(-50%, -50%)',
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -14,64 +23,57 @@ export default function Home() {
     title: {
       flexGrow: 1,
     },
-    paper: {
-      padding: theme.spacing(2),
-      margin: 'auto',
-      maxWidth: 500,
-      textAlign: 'center',
-      verticalAlign: 'middle',
-    },
-    image: {
-      width: 428,
-      height: 428,
-    },
-    img: {
-      margin: 'auto',
-      display: 'block',
-      maxWidth: '100%',
-      maxHeight: '100%',
-    },
   }));
   const classes = useStyles();
+  const [data, setData] = useState([]);
+  const updateQuote = () => {
+    if (data) {
+      var quote = data[Math.floor(Math.random() * data.length)];
+      setQuote(quote);
+    }
+  };
   const getData = () => {
     axios
       .get('/api/getSuggestions')
-      .then(function(response: any) {
+      .then(function (response: any) {
         if (response && response.data) {
-          var quote =
-            response.data[Math.floor(Math.random() * response.data.length)];
-          setQuote(quote);
+          setData(response.data);
         }
       })
-      .catch(function(error: any) {
+      .catch(function (error: any) {
         console.log(error);
       });
   };
-  const [quote, setQuote] = useState({text: ''});
-  const handleClick = () => {
-    getData();
-  };
 
+  const [quote, setQuote] = useState({ text: '' });
+  const handleClick = () => {
+    updateQuote();
+  };
+  useEffect(updateQuote, [data]);
   useEffect(() => {
     getData();
   }, []);
   return (
-    <Paper className={classes.paper}>
-      <Typography gutterBottom variant="h4">
-        {quote.text}
-      </Typography>
-      <div>
-        <TwitterShareButton
-          url="test.com"
-          title={quote.text}
-          hashtags={['spreadKindness']}
-        >
-          <TwitterIcon size={32} round />
-        </TwitterShareButton>
-      </div>
-      <Button variant="contained" color="primary" onClick={handleClick}>
-        Generate Ideas
-      </Button>
-    </Paper>
+    <div className={classes.root}>
+      {quote &&
+        <div className={classes.content}>
+          <Typography gutterBottom variant="h5">
+            {quote.text}
+          </Typography>
+          <div>
+            <TwitterShareButton
+              url="test.com"
+              title={quote.text}
+              hashtags={['spreadKindness']}
+            >
+              <TwitterIcon size={32} round />
+            </TwitterShareButton>
+          </div>
+          <Button variant="contained" color="primary" onClick={handleClick}>
+            Generate Ideas
+        </Button>
+        </div>
+      }
+    </div>
   );
 }

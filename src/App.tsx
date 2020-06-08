@@ -45,16 +45,13 @@ const useStyles = makeStyles(theme => ({
 
 function App(this: any) {
   const classes = useStyles();
- 
-
-
   return (
     <Router>
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <Typography variant="h6" className={classes.title}>
-              Dev Kindness
+            <Typography variant="h6" className={classes.title}  component={RouterLink} to="/">
+              Kind to Dev
             </Typography>
 
             <Button
